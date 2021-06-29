@@ -1,0 +1,22 @@
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/nav.css') }}">
+{% endblock %}
+
+<nav class="navbar">
+    <a class="col-3" href="#">
+        <i class="fas fa-plus icon"></i>
+        <span>Create recipe</span>
+    </a>
+    <a class="col-3" href="#">
+        <i class="fas fa-search icon"></i>
+        <span>Browse</span>
+    </a>
+    <a class="col-3" href="#">
+        <i class="fas fa-book icon"></i>
+        <span>Cookbook</span>
+    </a>
+    <a class="col-3" href="#">
+        <i class="fas fa-utensils icon"></i>
+        <span>Menu</span>
+    </a>
+</nav>

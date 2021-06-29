@@ -38,6 +38,11 @@
 <body>
     {% block content %}
     {% endblock %}
+
+    <!-- Navbar -->
+    {% if (active_page != 'index') and (active_page != 'login') and (active_page != 'register') %}
+        {% include 'components/nav.html' %}
+    {% endif %}
 </body>
 
 </html>
