@@ -1,0 +1,22 @@
+{% extends "pages/base/base.html" %}
+
+<!-- {% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %} -->
+
+{% block content %}
+    {% with header_text="Log in", header_link="/" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <section class="container-section">
+        <div class="button-long">
+            <p>Email</p>
+        </div>
+        <div class="button-long">
+            <p>Password</p>
+        </div>
+        <div class="button-long">
+            <a href="{{ url_for('login') }}">Log in</a>
+        </div>
+    </section>
+{% endblock %}

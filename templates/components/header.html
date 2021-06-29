@@ -1,0 +1,10 @@
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/header.css') }}">
+{% endblock %}
+
+<header class="container-header">
+    <a href="{{ header_link }}">
+        <i class="fas fa-arrow-left icon"></i>
+    </a>
+    <h1 class="ml-2">{{ header_text }}</h1>
+</header>
