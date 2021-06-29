@@ -13,6 +13,21 @@
     border: black solid 2px;
 }
 
+.container-fullscreen-section {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    
+    margin: 0 auto;
+    padding: 0 5vw;
+
+    width: 100%;
+    height: 100vh;
+
+    border: black solid 2px;
+}
+
 .container-section {
     display: flex;
     justify-content: center;
@@ -20,10 +35,15 @@
     flex-direction: column;
     
     margin: 0 auto;
-    padding: 0 10vw;
+    padding: 0 5vw;
 
     width: 100%;
-    height: 100vh;
 
     border: black solid 2px;
+}
+
+.container-scrollx {
+    width: 100%;
+    overflow: scroll;
+    white-space: nowrap;
 }
