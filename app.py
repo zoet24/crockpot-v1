@@ -35,6 +35,26 @@ def profile():
     return render_template("pages/profile/profile.html")
 
 
+@app.route("/add_recipe")
+def add_recipe():
+    return render_template("pages/add_recipe/add_recipe.html")
+
+
+@app.route("/browse")
+def browse():
+    return render_template("pages/browse/browse.html")
+
+
+@app.route("/cookbook")
+def cookbook():
+    return render_template("pages/cookbook/cookbook.html")
+
+
+@app.route("/menu")
+def menu():
+    return render_template("pages/menu/menu.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

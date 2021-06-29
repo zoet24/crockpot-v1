@@ -1,0 +1,15 @@
+{% set active_page = 'add_recipe' %}
+{% extends "pages/base/base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_recipe.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with header_text="Add recipe", header_link="/" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="header-spacer"></div>
+    <section class="container-section">
+    </section>
+{% endblock %}

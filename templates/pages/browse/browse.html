@@ -1,0 +1,15 @@
+{% set active_page = 'browse' %}
+{% extends "pages/base/base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with header_text="Browse", header_link="/" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="header-spacer"></div>
+    <section class="container-section">
+    </section>
+{% endblock %}
