@@ -45,6 +45,11 @@ def browse():
     return render_template("pages/browse/browse.html")
 
 
+@app.route("/browse_results")
+def browse_results():
+    return render_template("pages/browse_results/browse_results.html")
+
+
 @app.route("/cookbook")
 def cookbook():
     return render_template("pages/cookbook/cookbook.html")

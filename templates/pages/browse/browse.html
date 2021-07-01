@@ -11,6 +11,14 @@
     {% endwith %}
     <div class="header-spacer"></div>
     <section class="container-section">
+        <p>Search by:</p>
         {% include 'pages/browse/includes/switch_dish-ingredients.html' %}
+        <div class="button-long">
+            <i class="fas fa-search icon"></i>
+            <p>Search dishes</p>
+        </div>
+        <div class="button-short">
+            <a href="{{ url_for('browse_results') }}">Search</a>
+        </div>
     </section>
 {% endblock %}

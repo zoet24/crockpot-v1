@@ -4,7 +4,6 @@
     position: relative;
     background-color: lightgray;
     border: solid black 2px;
-    border-radius: 25px;
 }
 
 .switch-body input {
@@ -26,6 +25,9 @@
     width: 50%;
     background-color: white;
     position: absolute;
-    border-radius: 25px;
     transition: 1s;
+}
+
+.switch-body-round, .switch-slider-round {
+    border-radius: 25px;
 }

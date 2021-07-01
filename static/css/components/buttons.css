@@ -1,6 +1,21 @@
+.button-short {
+    margin: 10px auto;
+    padding: 10px;
+
+    display: flex;
+    align-items: center;
+    
+    border: black solid 2px;
+
+    text-align: center;   
+}
+
 .button-long {
     margin: 10px auto;
     padding: 10px;
+
+    display: flex;
+    align-items: center;
 
     width: 100%;
 

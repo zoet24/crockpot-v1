@@ -1,0 +1,41 @@
+{% set active_page = 'browse_results' %}
+{% extends "pages/base/base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/browse_results.css') }}">
+{% endblock %}
+
+{% block content %}
+    {% with header_text="We found 31 results!", header_link="/" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <div class="header-spacer"></div>
+    <section class="container-section">
+        <div class="button-long">
+            <i class="fas fa-search icon"></i>
+            <p>Search dishes</p>
+        </div>
+        <div class="container-scrollx">
+            <span class="me-2">Filters:</span>
+            <ul class="checkbox-ingredient">
+                <li>
+                    <input type="checkbox" id="browseresults_filters_nuts">
+                    <label for="browseresults_filters_nuts">Nuts</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="browseresults_filters_meat">
+                    <label for="browseresults_filters_meat">Vegetarian</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="browseresults_filters_bees">
+                    <label for="browseresults_filters_bees">Bees</label>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="container-section">
+        {% include 'components/recipe_card.html' %}
+        {% include 'components/recipe_card.html' %}
+        {% include 'components/recipe_card.html' %}
+    </section>
+{% endblock %}

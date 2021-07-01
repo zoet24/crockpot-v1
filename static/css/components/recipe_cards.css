@@ -1,0 +1,35 @@
+.recipe-card-body {
+    width: 100%;
+    margin: 10px 0;
+}
+
+.recipe-card-image {
+    width: 100%;
+    height: 200px;
+    position: relative;
+    border: black solid 2px;
+}
+
+.recipe-card-icon {
+    position: absolute;
+    top: 2%;
+    margin: 0;
+}
+
+.recipe-card-icon-left {
+    left: 2%;
+}
+
+.recipe-card-icon-right {
+    right: 2%;
+}
+
+.recipe-card-icon-timer {
+    border: none;
+    margin: 0 0 0 5px;
+}
+
+.recipe-card-text {
+    display: flex;
+    align-items: baseline;
+}
