@@ -40,6 +40,11 @@ def add_recipe():
     return render_template("pages/add_recipe/add_recipe.html")
 
 
+@app.route("/view_recipe")
+def view_recipe():
+    return render_template("pages/view_recipe/view_recipe.html")
+
+
 @app.route("/browse")
 def browse():
     return render_template("pages/browse/browse.html")

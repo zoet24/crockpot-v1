@@ -1,27 +1,34 @@
 .recipe-card-body {
     width: 100%;
     margin: 10px 0;
+    position: relative;
+}
+
+.recipe-card-icon-row {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .recipe-card-image {
     width: 100%;
     height: 200px;
-    position: relative;
     border: black solid 2px;
 }
 
 .recipe-card-icon {
     position: absolute;
-    top: 2%;
-    margin: 0;
 }
 
 .recipe-card-icon-left {
-    left: 2%;
+    left: 0;
+    margin: 10px 0 0 10px;
 }
 
 .recipe-card-icon-right {
-    right: 2%;
+    right: 0;
+    margin: 10px 10px 0 0;
 }
 
 .recipe-card-icon-timer {

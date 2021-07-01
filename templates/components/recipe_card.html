@@ -1,5 +1,5 @@
 <div class="recipe-card-body">
-    <div class="recipe-card-image">
+    <div class="recipe-card-icon-row">
         <a href="#">
             <i class="fas fa-utensils icon recipe-card-icon recipe-card-icon-left"></i>
         </a>
@@ -7,6 +7,9 @@
             <i class="fas fa-heart icon recipe-card-icon recipe-card-icon-right"></i>
         </a>
     </div>
+    <a href="{{ url_for('view_recipe') }}">
+        <div class="recipe-card-image"></div>
+    </a>
     <div class="recipe-card-text">
         <h3>{{ recipe_name }}</h3>
         <h5><i class="far fa-clock icon recipe-card-icon-timer"></i>{{ recipe_time }} mins</h5>
