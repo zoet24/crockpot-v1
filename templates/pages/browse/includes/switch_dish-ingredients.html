@@ -1,0 +1,18 @@
+<div class="switch-body">
+    <input type="radio" name="browse_switch_dish-ingredients" id="browse_switch_dish" value="Dish" onchange="browseSwitchValue()">
+    <label for="browse_switch_dish">Dish</label>
+    <input type="radio" name="browse_switch_dish-ingredients" id="browse_switch_ingredients" value="Ingredients" onchange="browseSwitchValue()">
+    <label for="browse_switch_ingredients">Ingredients</label>
+    <span class="switch-slider" id="browse_switch-slider_dish-ingredients"></span>
+</div>
+
+<script>
+    function browseSwitchValue() {
+        var value = $('input[name=browse_switch_dish-ingredients]:checked').val();
+        if (value == "Ingredients") {
+            document.getElementById("browse_switch-slider_dish-ingredients").style.transform = "translate(100%,0)";
+        } else {
+            document.getElementById("browse_switch-slider_dish-ingredients").style.transform = "translate(0%,0)";
+        }
+    }
+</script>
