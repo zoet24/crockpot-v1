@@ -34,8 +34,14 @@
         </div>
     </section>
     <section class="container-section">
-        {% include 'components/recipe_card.html' %}
-        {% include 'components/recipe_card.html' %}
-        {% include 'components/recipe_card.html' %}
+        {% with recipe_name="Lasagna", recipe_time="60" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
+        {% with recipe_name="Spaghetti", recipe_time="30" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
+        {% with recipe_name="Bee Stew", recipe_time="20" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
     </section>
 {% endblock %}
