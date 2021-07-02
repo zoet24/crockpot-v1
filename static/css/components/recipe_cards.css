@@ -1,4 +1,4 @@
-.recipe-card-body {
+.recipe-card-body, .recipe-card-image-body {
     width: 100%;
     margin: 10px 0;
     position: relative;
