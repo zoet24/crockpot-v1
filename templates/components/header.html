@@ -6,6 +6,11 @@
     <a href="{{ header_link }}">
         <i class="fas fa-arrow-left icon"></i>
     </a>
-    <h1>{{ header_text }}</h1>
+    <div class="header-text">
+        <h1>{{ header_text }}</h1>
+        {% if (active_page == 'view_recipe') %}    
+        <h5>{{ recipe_author }}<i class="far fa-clock icon recipe-card-icon-timer"></i>{{ recipe_time }} mins</h5>
+        {% endif %}
+    </div>
 </header>
 <div class="header-spacer"></div>

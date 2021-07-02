@@ -1,4 +1,4 @@
-{% set active_page = 'add_recipe' %}
+{% set active_page = 'view_recipe' %}
 {% extends "pages/base/base.html" %}
 
 {% block extra_css %}
@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-    {% with header_text="Lasagna", header_link="/" %}
+    {% with header_text="Lasagna", header_link="/", recipe_author="Hannah Burger", recipe_time="60" %}
         {% include 'components/header.html' %}
     {% endwith %}
     <section class="container-section">

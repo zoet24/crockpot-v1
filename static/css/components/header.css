@@ -4,6 +4,7 @@
     flex-direction: row;
 
     width: 100%;
+    height: 84px;
 
     padding: 10px;
 
@@ -16,5 +17,14 @@
 }
 
 .header-spacer {
-    height: 56px;
+    height: 84px;
+}
+
+.header-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.header-text h5 {
+    margin: 0;
 }
