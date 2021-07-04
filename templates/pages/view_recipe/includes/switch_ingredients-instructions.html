@@ -1,0 +1,18 @@
+<div class="switch-body">
+    <input type="radio" name="view_recipe_switch_ingredients-instructions" id="view_recipe_switch_ingredients" value="Ingredients" onchange="viewRecipeSwitchValue()">
+    <label for="view_recipe_switch_ingredients">Ingredients</label>
+    <input type="radio" name="view_recipe_switch_ingredients-instructions" id="view_recipe_switch_instructions" value="Instructions" onchange="viewRecipeSwitchValue()">
+    <label for="view_recipe_switch_instructions">Instructions</label>
+    <span class="switch-slider" id="view_recipe_switch-slider_ingredients-instructions"></span>
+</div>
+
+<script>
+    function viewRecipeSwitchValue() {
+        var value = $('input[name=view_recipe_switch_ingredients-instructions]:checked').val();
+        if (value == "Instructions") {
+            document.getElementById("view_recipe_switch-slider_ingredients-instructions").style.transform = "translate(100%,0)";
+        } else {
+            document.getElementById("view_recipe_switch-slider_ingredients-instructions").style.transform = "translate(0%,0)";
+        }
+    }
+</script>

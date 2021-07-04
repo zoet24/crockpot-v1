@@ -10,7 +10,7 @@
     width: 100%;
     height: calc(100vh - 168px);
 
-    border: black solid 2px;
+    /* border: black solid 2px; */
 }
 
 .container-section {
@@ -24,7 +24,7 @@
 
     width: 100%;
 
-    border: black solid 2px;
+    /* border: black solid 2px; */
 }
 
 .container-scrollx {
