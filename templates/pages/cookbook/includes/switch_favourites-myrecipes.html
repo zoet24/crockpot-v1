@@ -1,0 +1,18 @@
+<div class="switch-body switch-body-round">
+    <input type="radio" name="cookbook_switch_favourites-myrecipes" id="cookbook_switch_favourites" value="Favourites" onchange="cookbookSwitchValue()">
+    <label for="cookbook_switch_favourites">Favourites</label>
+    <input type="radio" name="cookbook_switch_favourites-myrecipes" id="cookbook_switch_myrecipes" value="My Recipes" onchange="cookbookSwitchValue()">
+    <label for="cookbook_switch_myrecipes">My Recipes</label>
+    <span class="switch-slider switch-slider-round" id="cookbook_switch-slider_favourites-myrecipes"></span>
+</div>
+
+<script>
+    function cookbookSwitchValue() {
+        var value = $('input[name=cookbook_switch_favourites-myrecipes]:checked').val();
+        if (value == "My Recipes") {
+            document.getElementById("cookbook_switch-slider_favourites-myrecipes").style.transform = "translate(100%,0)";
+        } else {
+            document.getElementById("cookbook_switch-slider_favourites-myrecipes").style.transform = "translate(0%,0)";
+        }
+    }
+</script>

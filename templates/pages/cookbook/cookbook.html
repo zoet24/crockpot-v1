@@ -6,9 +6,42 @@
 {% endblock %}
 
 {% block content %}
-    {% with header_text="Cookbook", header_link="/" %}
+    {% with header_text="Cookbook", header_link="/profile" %}
         {% include 'components/header.html' %}
     {% endwith %}
     <section class="container-section">
+        {% include 'pages/cookbook/includes/switch_favourites-myrecipes.html' %}
+        <div class="button-long">
+            <i class="fas fa-search icon"></i>
+            <p>Search dishes</p>
+        </div>
+        <div class="container-scrollx">
+            <span class="me-2">Filters:</span>
+            <ul class="checkbox-ingredient">
+                <li>
+                    <input type="checkbox" id="cookbook_filters_ingredients">
+                    <label for="cookbook_filters_ingredients">Ingredients</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cookbook_filters_meal">
+                    <label for="cookbook_filters_meal">Meal</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cookbook_filters_bees">
+                    <label for="cookbook_filters_bees">Bees</label>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section class="container-section">
+        {% with recipe_name="Lasagna", recipe_time="60" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
+        {% with recipe_name="Spaghetti", recipe_time="30" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
+        {% with recipe_name="Bee Stew", recipe_time="20" %}
+            {% include 'components/recipe_card.html' %}
+        {% endwith %}
     </section>
 {% endblock %}
