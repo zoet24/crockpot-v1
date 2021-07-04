@@ -1,0 +1,27 @@
+<div class="recipe-card-ingredients-instructions-content">
+    <div class="recipe-card-ingredients-content" id="view-recipe-recipe-card-ingredients-content">
+        <ul class="recipe-card-ingredients-content-items">
+            <li>Cheese</li>
+            <li>Biscuits</li>
+            <li>Bees</li>
+            <li>Ketchup</li>
+            <li>Raspberries</li>
+        </ul>
+    </div>
+    <div class="recipe-card-instructions-content hide" id="view-recipe-recipe-card-instructions-content">
+        <ol class="recipe-card-instructions-content-items">
+            <li>Add cheese to biscuits</li>
+            <li>Mash bees into a fine paste, then sieve through the biscuit base</li>
+            <li>Finely drizzle with ketchup and then garnish with a few choice raspberries</li>
+        </ol>
+    </div>
+</div>
+
+<script>
+    function viewRecipeIngredientsInstructions() {
+        var ingredientsContent = document.getElementById("view-recipe-recipe-card-ingredients-content");
+        var instructionsContent = document.getElementById("view-recipe-recipe-card-instructions-content");
+        ingredientsContent.classList.toggle("hide");
+        instructionsContent.classList.toggle("hide");
+    }
+</script>

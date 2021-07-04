@@ -14,9 +14,12 @@
             {% include 'components/recipe_card_image_icons.html' %}
         </div>
         <a href="#">+ add note</a>
-        <a href="#">- 2 servings +</a>
+        <a href="#" class="text-center"><strong>- 2 servings +</strong></a>
     </section>
-    <section class="container-section">
-        {% include 'pages/view_recipe/includes/switch_ingredients-instructions.html' %}
+    <section class="container-section my-2">
+        <div class="recipe-card-ingredients-instructions-body">
+            {% include 'pages/view_recipe/includes/switch_ingredients-instructions.html' %}
+            {% include 'pages/view_recipe/includes/recipe_card_ingredients-instructions.html' %}
+        </div>
     </section>
 {% endblock %}
