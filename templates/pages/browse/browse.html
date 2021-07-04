@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/browse.css') }}">
 {% endblock %}
 
+{% block extra_title %} | Browse Recipes{% endblock %}
+
 {% block content %}
     {% with header_text="Browse", header_link="/profile" %}
         {% include 'components/header.html' %}

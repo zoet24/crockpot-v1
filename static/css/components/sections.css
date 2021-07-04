@@ -27,6 +27,11 @@
     /* border: black solid 2px; */
 }
 
+.container-section-columns {
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
 .container-scrollx {
     width: 100%;
     overflow: scroll;

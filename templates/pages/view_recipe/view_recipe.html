@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/view_recipe.css') }}">
 {% endblock %}
 
+{% block extra_title %} | View Recipe{% endblock %}
+
 {% block content %}
     {% with header_text="Lasagna", header_link="/browse", recipe_author="Hannah Burger", recipe_time="60" %}
         {% include 'components/header.html' %}

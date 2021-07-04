@@ -5,10 +5,23 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
 {% endblock %}
 
+{% block extra_title %} | Menu{% endblock %}
+
 {% block content %}
     {% with header_text="Menu", header_link="/profile" %}
         {% include 'components/header.html' %}
     {% endwith %}
     <section class="container-section">
+        <div class="button-short">
+            <a href="#">Clear Menu</a>
+        </div>
+    </section>
+    <section class="container-section container-section-columns">
+        {% with recipe_name="Lasagna", recipe_time="60" %}
+            {% include 'components/recipe_card_sm.html' %}
+        {% endwith %}
+        {% with recipe_name="Bee Stew", recipe_time="20" %}
+            {% include 'components/recipe_card_sm.html' %}
+        {% endwith %}
     </section>
 {% endblock %}

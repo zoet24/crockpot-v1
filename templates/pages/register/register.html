@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/register.css') }}">
 {% endblock %} -->
 
+{% block extra_title %} | Register{% endblock %}
+
 {% block content %}
     {% with header_text="Register", header_link="/" %}
         {% include 'components/header.html' %}

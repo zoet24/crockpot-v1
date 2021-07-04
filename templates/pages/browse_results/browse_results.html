@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/browse_results.css') }}">
 {% endblock %}
 
+{% block extra_title %} | Browse Results{% endblock %}
+
 {% block content %}
     {% with header_text="We found 31 results!", header_link="/browse" %}
         {% include 'components/header.html' %}

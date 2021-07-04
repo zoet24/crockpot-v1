@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
 {% endblock %} -->
 
+{% block extra_title %} | Log In{% endblock %}
+
 {% block content %}
     {% with header_text="Log in", header_link="/" %}
         {% include 'components/header.html' %}

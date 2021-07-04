@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/add_recipe.css') }}">
 {% endblock %}
 
+{% block extra_title %} | Add Recipe{% endblock %}
+
 {% block content %}
     {% with header_text="Add recipe", header_link="/profile" %}
         {% include 'components/header.html' %}
