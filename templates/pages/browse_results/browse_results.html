@@ -19,18 +19,12 @@
         <div class="container-scrollx">
             <span class="me-2">Filters:</span>
             <ul class="checkbox-ingredient">
+                {% for category in categories %}
                 <li>
-                    <input type="checkbox" id="browseresults_filters_nuts">
-                    <label for="browseresults_filters_nuts">Nuts</label>
+                    <input type="checkbox" id="browseresults_filters_{{category.cat_name}}">
+                    <label for="browseresults_filters_{{category.cat_name}}">{{category.cat_name}}</label>
                 </li>
-                <li>
-                    <input type="checkbox" id="browseresults_filters_meat">
-                    <label for="browseresults_filters_meat">Vegetarian</label>
-                </li>
-                <li>
-                    <input type="checkbox" id="browseresults_filters_bees">
-                    <label for="browseresults_filters_bees">Bees</label>
-                </li>
+                {% endfor %}
             </ul>
         </div>
     </section>

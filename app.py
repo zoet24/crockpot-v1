@@ -60,8 +60,10 @@ def browse():
 
 @app.route("/browse_results")
 def browse_results():
+    categories = cats.find()
     recipes = recs.find()
     return render_template("pages/browse_results/browse_results.html",
+                           categories=categories,
                            recipes=recipes)
 
 
