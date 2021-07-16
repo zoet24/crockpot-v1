@@ -10,9 +10,17 @@ if os.path.exists("env.py"):
 
 app = Flask(__name__)
 
-# app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
-# app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
+app.config["MONGO_DBNAME"] = os.environ.get("MONGO_DBNAME")
+app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
+
+mongo = PyMongo(app)
+
+cats = mongo.db.categories
+ings = mongo.db.ingredients
+recs = mongo.db.recipes
+units = mongo.db.units
+users = mongo.db.users
 
 
 @app.route("/")
@@ -52,7 +60,9 @@ def browse():
 
 @app.route("/browse_results")
 def browse_results():
-    return render_template("pages/browse_results/browse_results.html")
+    recipes = recs.find()
+    return render_template("pages/browse_results/browse_results.html",
+                           recipes=recipes)
 
 
 @app.route("/cookbook")

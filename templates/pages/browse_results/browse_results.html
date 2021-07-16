@@ -35,14 +35,10 @@
         </div>
     </section>
     <section class="container-section">
-        {% with recipe_name="Lasagna", recipe_time="60" %}
-            {% include 'components/recipe_card.html' %}
-        {% endwith %}
-        {% with recipe_name="Spaghetti", recipe_time="30" %}
-            {% include 'components/recipe_card.html' %}
-        {% endwith %}
-        {% with recipe_name="Bee Stew", recipe_time="20" %}
-            {% include 'components/recipe_card.html' %}
-        {% endwith %}
+        {% for recipe in recipes %}
+            {% with recipe_name=recipe.r_name, recipe_time=recipe.r_time %}
+                {% include 'components/recipe_card.html' %}
+            {% endwith %}
+        {% endfor %}
     </section>
 {% endblock %}
