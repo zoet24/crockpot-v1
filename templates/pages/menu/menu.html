@@ -8,10 +8,13 @@
 {% block extra_title %} | Menu{% endblock %}
 
 {% block content %}
-    {% with header_text="Menu", header_link="/profile" %}
+    {% with header_text="Menu" %}
         {% include 'components/header.html' %}
     {% endwith %}
     <section class="container-section">
+        <div class="button-short">
+            <a href="#">Generate shopping list</a>
+        </div>
         <div class="button-short">
             <a href="#">Clear Menu</a>
         </div>

@@ -8,11 +8,16 @@
 {% block extra_title %} | Profile{% endblock %}
 
 {% block content %}
-    {% with header_text="Hannah", header_link="/" %}
+    {% with header_text="Hannah" %}
         {% include 'components/header.html' %}
     {% endwith %}
     <!-- Profile accordion -->
     <section class="container-section">
         {% include 'pages/profile/includes/accordion_profile-menu.html' %}
+    </section>
+    <section class="container-section">
+        <div class="button-short">
+            <a href="{{ url_for('login') }}">Log out</a>
+        </div>
     </section>
 {% endblock %}

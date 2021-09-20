@@ -1,19 +1,27 @@
 <div class="navbar-spacer"></div>
 <nav class="navbar">
-    <a class="col-3" href="{{ url_for('add_recipe') }}">
-        <i class="fas fa-plus icon"></i>
-        <span>Create recipe</span>
+    <a class="navbar-link-container" href="{{ url_for('browse') }}">
+        <div class="navbar-link">
+            <i class="fas fa-search icon"></i>
+            <span>Browse</span>
+        </div>
     </a>
-    <a class="col-3" href="{{ url_for('browse') }}">
-        <i class="fas fa-search icon"></i>
-        <span>Browse</span>
+    <a class="navbar-link-container" href="{{ url_for('cookbook') }}">
+        <div class="navbar-link">
+            <i class="fas fa-book icon"></i>
+            <span>Cookbook</span>
+        </div>
     </a>
-    <a class="col-3" href="{{ url_for('cookbook') }}">
-        <i class="fas fa-book icon"></i>
-        <span>Cookbook</span>
+    <a class="navbar-link-container" href="{{ url_for('menu') }}">
+        <div class="navbar-link">
+            <i class="fas fa-utensils icon"></i>
+            <span>Menu</span>
+        </div>
     </a>
-    <a class="col-3" href="{{ url_for('menu') }}">
-        <i class="fas fa-utensils icon"></i>
-        <span>Menu</span>
+    <a class="navbar-link-container" href="{{ url_for('shopping_list') }}">
+        <div class="navbar-link">
+            <i class="fas fa-list-ul icon"></i>
+            <span>Shopping list</span>
+        </div>
     </a>
 </nav>

@@ -77,6 +77,11 @@ def menu():
     return render_template("pages/menu/menu.html")
 
 
+@app.route("/shopping_list")
+def shopping_list():
+    return render_template("pages/shopping_list/shopping_list.html")
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),

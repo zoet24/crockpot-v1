@@ -1,0 +1,26 @@
+{% set active_page = 'shopping_list' %}
+{% extends "pages/base/base.html" %}
+
+<!-- {% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/shopping_list.css') }}">
+{% endblock %} -->
+
+{% block extra_title %} | Shopping List{% endblock %}
+
+{% block content %}
+    {% with header_text="Shopping List" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <section class="container-section">
+        <div class="button-short">
+            <a href="#">Update shopping list</a>
+        </div>
+        <div class="button-short">
+            <a href="#">Clear shopping list</a>
+        </div>
+    </section>
+    <!-- Shopping list accordion -->
+    <section class="container-section">
+        {% include 'pages/shopping_list/includes/accordion_shopping-list.html' %}
+    </section>
+{% endblock %}

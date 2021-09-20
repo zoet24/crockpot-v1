@@ -13,16 +13,32 @@
     padding: 0 5vw;
 
     width: 100%;
-    height: 15vh;
+    height: 12.5vh;
 
     border-top: black solid 2px;
     background-color: white;
 }
 
+.navbar-link-container {
+    width: 25%;
+    text-decoration: none;
+}
+
+.navbar-link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.navbar-link .icon {
+    text-decoration: none;
+}
+
 .navbar a span {
     font-size: 10px;
+    margin-top: 5px;
 }
 
 .navbar-spacer {
-    height: 15vh;
+    height: 12.5vh;
 }
