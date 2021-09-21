@@ -5,8 +5,10 @@
         <h5>{{ recipe_author }}<i class="far fa-clock icon recipe-card-icon-timer"></i>{{ recipe_time }} mins</h5>
         {% endif %}
     </div>
+    {% if (active_page != 'register') and (active_page != 'login') %}
     <a href="{{ url_for('profile') }}">
         <i class="fas fa-user icon"></i>
     </a>
+    {% endif %}
 </header>
 <div class="header-spacer"></div>

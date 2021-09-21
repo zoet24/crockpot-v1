@@ -40,7 +40,11 @@ def register():
 
 @app.route("/profile")
 def profile():
-    return render_template("pages/profile/profile.html")
+    user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    ingredients = list(ings.find())
+    return render_template("pages/profile/profile.html",
+                           user=user,
+                           ingredients=ingredients)
 
 
 @app.route("/add_recipe")
@@ -79,7 +83,10 @@ def menu():
 
 @app.route("/shopping_list")
 def shopping_list():
-    return render_template("pages/shopping_list/shopping_list.html")
+    ingredients = list(ings.find())
+    # Need array of ingredients, quantities in shopping list
+    return render_template("pages/shopping_list/shopping_list.html",
+                           ingredients=ingredients)
 
 
 if __name__ == "__main__":
