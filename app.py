@@ -47,6 +47,11 @@ def profile():
                            ingredients=ingredients)
 
 
+@app.route("/add_ingredient")
+def add_ingredient():
+    
+
+
 @app.route("/add_recipe")
 def add_recipe():
     return render_template("pages/add_recipe/add_recipe.html")
