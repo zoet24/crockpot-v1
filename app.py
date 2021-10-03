@@ -22,6 +22,8 @@ recs = mongo.db.recipes
 units = mongo.db.units
 users = mongo.db.users
 
+user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+
 
 @app.route("/")
 def index():
@@ -40,7 +42,7 @@ def register():
 
 @app.route("/profile")
 def profile():
-    user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    # user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
     ingredients = list(ings.find())
     return render_template("pages/profile/profile.html",
                            user=user,
@@ -49,7 +51,11 @@ def profile():
 
 @app.route("/add_ingredient")
 def add_ingredient():
-    
+    print("Hi Jesse!")
+    ingredients = list(ings.find())
+    return render_template("pages/profile/profile.html",
+                           user=user,
+                           ingredients=ingredients)
 
 
 @app.route("/add_recipe")

@@ -30,11 +30,13 @@
         <div id="collapse-2" class="accordion-collapse collapse" aria-labelledby="heading-2"
             data-bs-parent="#accordion-profile">
             <div class="accordion-body">
-                <ul>
-                    {% for item in user.cupboard %}
-                        <li>{{ item[0] }} {{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
+                {% if item in user.cupboard %}
+                    <ul>
+                        {% for item in user.cupboard %}
+                            <li>{{ item[0] }} {{ item[1] }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <select>
                     {% for ingredient in ingredients %}
                         {% if ingredient.ings_category == 'Cupboard' %}
@@ -59,11 +61,13 @@
         <div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="heading-3"
             data-bs-parent="#accordion-profile">
             <div class="accordion-body">
-                <ul>
-                    {% for item in user.spicerack %}
-                        <li>{{ item[0] }} {{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
+                {% if item in user.spicerack %}
+                    <ul>
+                        {% for item in user.spicerack %}
+                            <li>{{ item[0] }} {{ item[1] }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <select>
                     {% for ingredient in ingredients %}
                         {% if ingredient.ings_category == 'Herbs and spices' %}
@@ -88,11 +92,14 @@
         <div id="collapse-4" class="accordion-collapse collapse" aria-labelledby="heading-4"
             data-bs-parent="#accordion-profile">
             <div class="accordion-body">
-                <ul>
-                    {% for item in user.house %}
-                        <li>{{ item[0] }} {{ item[1] }}</li>
-                    {% endfor %}
-                </ul>
+                {% if item in user.house %}
+                    <ul>
+                    
+                        {% for item in user.house %}
+                            <li>{{ item[0] }} {{ item[1] }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
                 <select>
                     {% for ingredient in ingredients %}
                         {% if ingredient.ings_category == 'House' %}

@@ -8,7 +8,7 @@
 {% block extra_title %} | Profile{% endblock %}
 
 {% block content %}
-    {% with header_text="Hannah" %}
+    {% with header_text= user.name %}
         {% include 'components/header.html' %}
     {% endwith %}
     <!-- Profile accordion -->
