@@ -16,10 +16,10 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
-cats = mongo.db.categories
-ings = mongo.db.ingredients
-recs = mongo.db.recipes
-units = mongo.db.units
+cats = list(mongo.db.categories.find())
+ings = list(mongo.db.ingredients.find())
+recs = list(mongo.db.recipes.find())
+units = list(mongo.db.units.find())
 users = mongo.db.users
 
 user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
@@ -43,19 +43,30 @@ def register():
 @app.route("/profile")
 def profile():
     # user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
-    ingredients = list(ings.find())
+
+    # for ingredient in ingredients:
+    #     for name in ingredient["ings"]:
+    #         print(name["name"])
+
+    # Get house, other, spicerack arrays
+
     return render_template("pages/profile/profile.html",
                            user=user,
-                           ingredients=ingredients)
+                           categories=cats,
+                           ingredients=ings)
 
 
-@app.route("/add_ingredient")
-def add_ingredient():
-    print("Hi Jesse!")
-    ingredients = list(ings.find())
-    return render_template("pages/profile/profile.html",
-                           user=user,
-                           ingredients=ingredients)
+@app.route("/add_ingredient/<ings_category>/", methods=["GET", "POST"])
+def add_ingredient(ings_category):
+    if request.method == "POST":
+
+        ings_selected = request.form.get(ings_category)
+        print(ings_category)
+        print(user['spicerack'])
+
+        return render_template("pages/profile/profile.html",
+                            user=user,
+                            ingredients=ings)
 
 
 @app.route("/add_recipe")
@@ -75,11 +86,9 @@ def browse():
 
 @app.route("/browse_results")
 def browse_results():
-    categories = cats.find()
-    recipes = recs.find()
     return render_template("pages/browse_results/browse_results.html",
-                           categories=categories,
-                           recipes=recipes)
+                           categories=cats,
+                           recipes=recs)
 
 
 @app.route("/cookbook")
@@ -94,10 +103,9 @@ def menu():
 
 @app.route("/shopping_list")
 def shopping_list():
-    ingredients = list(ings.find())
     # Need array of ingredients, quantities in shopping list
     return render_template("pages/shopping_list/shopping_list.html",
-                           ingredients=ingredients)
+                           ingredients=ings)
 
 
 if __name__ == "__main__":
