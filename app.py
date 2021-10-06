@@ -16,13 +16,18 @@ app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
 
+cats_db = mongo.db.categories
+ings_db = mongo.db.ingredients
+recs_db = mongo.db.recipes
+units_db = mongo.db.units
+users_db = mongo.db.users
+
 cats = list(mongo.db.categories.find())
 ings = list(mongo.db.ingredients.find())
 recs = list(mongo.db.recipes.find())
 units = list(mongo.db.units.find())
-users = mongo.db.users
 
-user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
 
 
 @app.route("/")
@@ -42,24 +47,68 @@ def register():
 
 @app.route("/profile")
 def profile():
-    # user = users.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    # Get ings in user's cupboard
+    user_cupboard = user['cupboard']
+    user_cupboard_arr = []
+    i = 0
+    imax = len(user_cupboard)
 
-    # for ingredient in ingredients:
-    #     for name in ingredient["ings"]:
-    #         print(name["name"])
+    if user_cupboard != []:
+        while i < imax:
+            user_cupboard_arr.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
+            user_cupboard_arr[i]["bag"] = user_cupboard[i]['bag']
+            i += 1
+    
+    # Get ings with cupboard category
+    ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
 
-    # Get house, other, spicerack arrays
+    # Get spices in user's spicerack
+    user_spice = user['spicerack']
+    user_spice_arr = []
+    i = 0
+    imax = len(user_spice)
+
+    if user_spice != []:
+        while i < imax:
+            user_spice_arr.append(ings_db.find_one({"_id": user_spice[i]['id']}))
+            user_spice_arr[i]["bag"] = user_spice[i]['bag']
+            i += 1
+    
+    # Get ings with spice category
+    ings_spices = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
+    
+    # Get items in user's house
+    user_house = user['house']
+    user_house_arr = []
+    i = 0
+    imax = len(user_house)
+
+    if user_house != []:
+        while i < imax:
+            user_house_arr.append(ings_db.find_one({"_id": user_house[i]['id']}))
+            user_house_arr[i]["bag"] = user_house[i]['bag']
+            i += 1
+    
+    # Get ings with house category
+    ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
 
     return render_template("pages/profile/profile.html",
-                           user=user,
-                           categories=cats,
-                           ingredients=ings)
+                           user = user,
+                           user_cupboard = user_cupboard_arr,
+                           user_spices = user_spice_arr,
+                           user_house = user_house_arr,
+                           ings = ings,
+                           ings_cupboard = ings_cupboard,
+                           ings_spices = ings_spices,
+                           ings_house = ings_house)
 
 
 @app.route("/add_ingredient/<ings_category>/", methods=["GET", "POST"])
 def add_ingredient(ings_category):
     if request.method == "POST":
 
+        cat_house = list(mongo.db.categories.find({"ings_category": "Other"}))
+        print(cat_house)
         ings_selected = request.form.get(ings_category)
         print(ings_category)
         print(user['spicerack'])
