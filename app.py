@@ -109,13 +109,16 @@ def add_ingredient(select_name):
         ings_selected_id = request.form.getlist(select_name)
         ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id[0])})
 
-        # Add selected ingredient to correct category (watch add/remove CI videos)
+        # Add selected ingredient to correct category (watch add/remove CI videos) --> DONE
+        # Only display ingredients on ingredients list that aren't already in spicerack
         # Make better names for accordion profile forms
         # Redirect properly
 
         # House
         if (ings_selected['cat_name'] == ObjectId("615cb8473651f6c470f9a553")):
-            print("Yes")
+            print(ings_selected)
+            users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                               {'$push': {"house": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
 
         return render_template("pages/profile/profile.html",
                             user=user,
