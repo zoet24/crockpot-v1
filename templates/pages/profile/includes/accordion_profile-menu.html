@@ -35,7 +35,7 @@
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', ings_category = 'cupboard') }}" id="profile-menu_add-ing_cupboard">
+                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_cupboard') }}" id="profile-menu_add-ing_cupboard">
                     <select name="cupboard">
                         {% for ing in ings_cupboard %}
                             <option value="{{ ing.url }}">{{ ing.name }}</option>
@@ -62,7 +62,7 @@
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', ings_category = 'herbs-and-spices') }}" id="profile-menu_add-ing_herbs-and-spices">
+                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_herbs-and-spices') }}" id="profile-menu_add-ing_herbs-and-spices">
                     <select name="herbs-and-spices">
                         {% for ing in ings_spices %}
                             <option value="{{ ing.url }}">{{ ing.name }}</option>
@@ -89,10 +89,10 @@
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', ings_category = 'house') }}" id="profile-menu_add-ing_house">
-                    <select name="house">
+                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_house') }}" id="profile-menu_add-ing_house">
+                    <select name="profile-menu_add-ing_house">
                         {% for ing in ings_house %}
-                            <option value="{{ ing.url }}">{{ ing.name }}</option>
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
                     <button type="submit" form="profile-menu_add-ing_house">+ add ingredients</button>

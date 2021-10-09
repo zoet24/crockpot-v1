@@ -103,15 +103,19 @@ def profile():
                            ings_house = ings_house)
 
 
-@app.route("/add_ingredient/<ings_category>/", methods=["GET", "POST"])
-def add_ingredient(ings_category):
+@app.route("/add_ingredient/<select_name>", methods=["GET", "POST"])
+def add_ingredient(select_name):
     if request.method == "POST":
+        ings_selected_id = request.form.getlist(select_name)
+        ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id[0])})
 
-        cat_house = list(mongo.db.categories.find({"ings_category": "Other"}))
-        print(cat_house)
-        ings_selected = request.form.get(ings_category)
-        print(ings_category)
-        print(user['spicerack'])
+        # Add selected ingredient to correct category (watch add/remove CI videos)
+        # Make better names for accordion profile forms
+        # Redirect properly
+
+        # House
+        if (ings_selected['cat_name'] == ObjectId("615cb8473651f6c470f9a553")):
+            print("Yes")
 
         return render_template("pages/profile/profile.html",
                             user=user,
