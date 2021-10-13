@@ -37,6 +37,14 @@ user_cupboard = user['cupboard']
 user_cupboard_arr = []
 icupboard_max = len(user_cupboard)
 
+# Get ings in user's cupboard
+if user_cupboard != []:
+    i = 0
+    while i < icupboard_max:
+        user_cupboard_arr.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
+        user_cupboard_arr[i]["bag"] = user_cupboard[i]['bag']
+        i += 1
+
 # User fav
 # user_fav = user['fav']
 # user_fav_arr = []
@@ -45,7 +53,17 @@ icupboard_max = len(user_cupboard)
 # User house
 user_house = user['house']
 user_house_arr = []
+user_house_id_arr = []
 ihouse_max = len(user_house)
+
+# Get ings in user's house
+if user_house != []:
+    i = 0
+    while i < ihouse_max:
+        user_house_arr.append(ings_db.find_one({"_id": user_house[i]['id']}))
+        user_house_id_arr.append(str(user_house[i]['id']))
+        user_house_arr[i]["bag"] = user_house[i]['bag']
+        i += 1
 
 # User menu
 # user_menu = user['menu']
@@ -61,6 +79,14 @@ ihouse_max = len(user_house)
 user_spicerack = user['spicerack']
 user_spicerack_arr = []
 ispicerack_max = len(user_spicerack)
+
+# Get ings in user's spicerack
+if user_spicerack != []:
+    i = 0
+    while i < ispicerack_max:
+        user_spicerack_arr.append(ings_db.find_one({"_id": user_spicerack[i]['id']}))
+        user_spicerack_arr[i]["bag"] = user_spicerack[i]['bag']
+        i += 1
 
 
 @app.route("/")
@@ -79,40 +105,13 @@ def register():
 
 
 @app.route("/profile")
-def profile():
-    i = 0
-
-    # Get ings in user's cupboard
-    if user_cupboard != []:
-        while i < icupboard_max:
-            user_cupboard_arr.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
-            user_cupboard_arr[i]["bag"] = user_cupboard[i]['bag']
-            i += 1
-    
+def profile():    
     # Get ings with cupboard category
     ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
 
-    # Get spices in user's spicerack
-    i = 0
-
-    if user_spicerack != []:
-        while i < ispicerack_max:
-            user_spicerack_arr.append(ings_db.find_one({"_id": user_spicerack[i]['id']}))
-            user_spicerack_arr[i]["bag"] = user_spicerack[i]['bag']
-            i += 1
-    
     # Get ings with spice category
     ings_spices = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
-    
-    # Get items in user's house
-    i = 0
 
-    if user_house != []:
-        while i < ihouse_max:
-            user_house_arr.append(ings_db.find_one({"_id": user_house[i]['id']}))
-            user_house_arr[i]["bag"] = user_house[i]['bag']
-            i += 1
-    
     # Get ings with house category
     ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
 
@@ -130,19 +129,28 @@ def profile():
 @app.route("/add_ingredient/<select_name>", methods=["GET", "POST"])
 def add_ingredient(select_name):
     if request.method == "POST":
-        ings_selected_id = request.form.getlist(select_name)
-        ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id[0])})
+        ings_selected_id = request.form.getlist(select_name)[0]
+        ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
+
+        print(user_house)
+        print(user_house_arr)
+        print(user_house_id_arr)
 
         # Add selected ingredient to correct category (watch add/remove CI videos) --> DONE
-        # Only display ingredients on ingredients list that aren't already in spicerack
-        # Make better names for accordion profile forms
+        # Only display ingredients on ingredients list that aren't already in spicerack --> DONE
+        # Make ID array for all user properties
+        # Find way of refreshing user properties to keep it up to date
         # Redirect properly
+        # Make better names for accordion profile forms
+        # Add admin interface to add new ingredients and categories, which creates list of ingredients on each category, then update method of searching for ingredients with specific category
 
         # House
         if (ings_selected['cat_name'] == ObjectId("615cb8473651f6c470f9a553")):
-            print((user['house'][0]['id']))
-            users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
-                               {'$push': {"house": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+            if ings_selected_id not in user_house_id_arr:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"house": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+
+        print(user_house_id_arr)
 
         return render_template("pages/profile/profile.html",
                             user=user,
