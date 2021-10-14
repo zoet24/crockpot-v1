@@ -32,7 +32,8 @@
             <div class="accordion-body">
                 <ul>
                     {% for item in user_cupboard %}
-                        <li>{{ item.name }} {{ item.bag }}</li>
+                        <li><a href="{{ url_for('profile_toggle_ingredient', ing_id = item._id ) }}">{{ item.name }} {{ item.bag }}</a></li>
+                        {{ item._id }}
                     {% endfor %}
                 </ul>
                 <form method="POST" action="{{ url_for('profile_add_ingredient') }}" id="form_profile-add-ingredient_cupboard">

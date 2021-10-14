@@ -163,6 +163,33 @@ def profile():
                            )
 
 
+@app.route("/profile_toggle_ingredient/<ing_id>")
+def profile_toggle_ingredient(ing_id):
+    print("Hello!")
+
+    ing_id_index = user_cupboard_ids.index(ing_id)
+    users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                            {"$set" : {"cupboard."+str(ing_id_index)+".bag" : True}})
+    
+    # global user_cupboard
+    # global user_cupboard_detail
+    # global user_cupboard_ids
+
+    # print(user_cupboard)
+    # print(user_cupboard_detail)
+    # print(user_cupboard_ids)
+
+    
+    # user_cupboard[index]['bag'] = not user_cupboard[index]['bag']
+    # user_cupboard_detail[index]['bag'] = not user_cupboard_detail[index]['bag']
+
+    # print("After!")
+    # print(user_cupboard)
+    # print(user_cupboard_detail)
+    # print(user_cupboard_ids)
+    return redirect(url_for("profile"))
+
+
 @app.route("/profile_add_ingredient", methods=["GET", "POST"])
 def profile_add_ingredient():
     if request.method == "POST":        
