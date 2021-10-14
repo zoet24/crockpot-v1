@@ -35,10 +35,10 @@
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_cupboard') }}" id="profile-menu_add-ing_cupboard">
-                    <select name="cupboard">
+                <form method="POST" action="{{ url_for('profile_add_ingredient', select_name = 'profile-menu_add-ing_cupboard') }}" id="profile-menu_add-ing_cupboard">
+                    <select name="profile-menu_add-ing_cupboard">
                         {% for ing in ings_cupboard %}
-                            <option value="{{ ing.url }}">{{ ing.name }}</option>
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
                     <button type="submit" form="profile-menu_add-ing_cupboard">+ add ingredients</button>
@@ -51,24 +51,24 @@
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                 data-bs-target="#collapse-3" aria-expanded="false" aria-controls="collapse-3">
                 <i class="fas fa-pepper-hot icon"></i>
-                My spicerack ({{ user_spices|length }})
+                My spicerack ({{ user_spicerack|length }})
             </button>
         </h2>
         <div id="collapse-3" class="accordion-collapse collapse" aria-labelledby="heading-3"
             data-bs-parent="#accordion-profile">
             <div class="accordion-body">
                 <ul>
-                    {% for item in user_spices %}
+                    {% for item in user_spicerack %}
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_herbs-and-spices') }}" id="profile-menu_add-ing_herbs-and-spices">
-                    <select name="herbs-and-spices">
-                        {% for ing in ings_spices %}
-                            <option value="{{ ing.url }}">{{ ing.name }}</option>
+                <form method="POST" action="{{ url_for('profile_add_ingredient', select_name = 'profile-menu_add-ing_spicerack') }}" id="profile-menu_add-ing_spicerack">
+                    <select name="profile-menu_add-ing_spicerack">
+                        {% for ing in ings_spicerack %}
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" form="profile-menu_add-ing_herbs-and-spices">+ add ingredients</button>
+                    <button type="submit" form="profile-menu_add-ing_spicerack">+ add ingredients</button>
                 </form>
             </div>
         </div>
@@ -89,7 +89,7 @@
                         <li>{{ item.name }} {{ item.bag }}</li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('add_ingredient', select_name = 'profile-menu_add-ing_house') }}" id="profile-menu_add-ing_house">
+                <form method="POST" action="{{ url_for('profile_add_ingredient', select_name = 'profile-menu_add-ing_house') }}" id="profile-menu_add-ing_house">
                     <select name="profile-menu_add-ing_house">
                         {% for ing in ings_house %}
                             <option value="{{ ing._id }}">{{ ing.name }}</option>

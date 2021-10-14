@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
+# from functions.create_vars import *
 
 
 app = Flask(__name__)
@@ -34,59 +35,94 @@ user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
 
 # User cupboard
 user_cupboard = user['cupboard']
-user_cupboard_arr = []
+user_cupboard_detail = []
+user_cupboard_ids = []
 icupboard_max = len(user_cupboard)
 
 # Get ings in user's cupboard
 if user_cupboard != []:
     i = 0
     while i < icupboard_max:
-        user_cupboard_arr.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
-        user_cupboard_arr[i]["bag"] = user_cupboard[i]['bag']
+        user_cupboard_detail.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
+        user_cupboard_ids.append(str(user_cupboard[i]['id']))
+        user_cupboard_detail[i]["bag"] = user_cupboard[i]['bag']
         i += 1
 
+def update_add_vars_cupboard():
+    global user_cupboard
+    global user_cupboard_detail
+    global user_cupboard_ids
+
+    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    user_cupboard = user['cupboard']
+    user_cupboard_detail.append(ings_db.find_one({"_id": user_cupboard[-1]['id']}))
+    user_cupboard_detail[-1]["bag"] = user_cupboard[-1]['bag']
+    user_cupboard_ids.append(str(user_cupboard[-1]['id']))
+
+    return user_cupboard, user_cupboard_detail, user_cupboard_ids
+
+
 # User fav
-# user_fav = user['fav']
-# user_fav_arr = []
-# ifav_max = len(user_fav)
 
 # User house
 user_house = user['house']
-user_house_arr = []
-user_house_id_arr = []
+user_house_detail = []
+user_house_ids = []
 ihouse_max = len(user_house)
 
 # Get ings in user's house
 if user_house != []:
     i = 0
     while i < ihouse_max:
-        user_house_arr.append(ings_db.find_one({"_id": user_house[i]['id']}))
-        user_house_id_arr.append(str(user_house[i]['id']))
-        user_house_arr[i]["bag"] = user_house[i]['bag']
+        user_house_detail.append(ings_db.find_one({"_id": user_house[i]['id']}))
+        user_house_ids.append(str(user_house[i]['id']))
+        user_house_detail[i]["bag"] = user_house[i]['bag']
         i += 1
 
+def update_add_vars_house():
+    global user_house
+    global user_house_detail
+    global user_house_ids
+
+    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    user_house = user['house']
+    user_house_detail.append(ings_db.find_one({"_id": user_house[-1]['id']}))
+    user_house_detail[-1]["bag"] = user_house[-1]['bag']
+    user_house_ids.append(str(user_house[-1]['id']))
+
+    return user_house, user_house_detail, user_house_ids
+
 # User menu
-# user_menu = user['menu']
-# user_menu_arr = []
-# imenu_max = len(user_menu)
 
 # User shopping
-# user_shopping = user['shopping']
-# user_shopping_arr = []
-# ishopping_max = len(user_shopping)
 
 # User spicerack
 user_spicerack = user['spicerack']
-user_spicerack_arr = []
+user_spicerack_detail = []
+user_spicerack_ids = []
 ispicerack_max = len(user_spicerack)
 
 # Get ings in user's spicerack
 if user_spicerack != []:
     i = 0
     while i < ispicerack_max:
-        user_spicerack_arr.append(ings_db.find_one({"_id": user_spicerack[i]['id']}))
-        user_spicerack_arr[i]["bag"] = user_spicerack[i]['bag']
+        user_spicerack_detail.append(ings_db.find_one({"_id": user_spicerack[i]['id']}))
+        user_spicerack_ids.append(str(user_spicerack[i]['id']))
+        user_spicerack_detail[i]["bag"] = user_spicerack[i]['bag']
         i += 1
+
+def update_add_vars_spicerack():
+    global user_spicerack
+    global user_spicerack_detail
+    global user_spicerack_ids
+
+    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    user_spicerack = user['spicerack']
+    user_spicerack_detail.append(ings_db.find_one({"_id": user_spicerack[-1]['id']}))
+    user_spicerack_detail[-1]["bag"] = user_spicerack[-1]['bag']
+    user_spicerack_ids.append(str(user_spicerack[-1]['id']))
+
+    return user_spicerack, user_spicerack_detail, user_spicerack_ids
 
 
 @app.route("/")
@@ -110,51 +146,63 @@ def profile():
     ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
 
     # Get ings with spice category
-    ings_spices = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
+    ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
 
     # Get ings with house category
     ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
 
     return render_template("pages/profile/profile.html",
                            user = user,
-                           user_cupboard = user_cupboard_arr,
-                           user_spices = user_spicerack_arr,
-                           user_house = user_house_arr,
+                           user_cupboard = user_cupboard_detail,
+                           user_spicerack = user_spicerack_detail,
+                           user_house = user_house_detail,
                            ings = ings,
                            ings_cupboard = ings_cupboard,
-                           ings_spices = ings_spices,
-                           ings_house = ings_house)
+                           ings_spicerack = ings_spicerack,
+                           ings_house = ings_house
+                           )
 
 
 @app.route("/add_ingredient/<select_name>", methods=["GET", "POST"])
-def add_ingredient(select_name):
-    if request.method == "POST":
+def profile_add_ingredient(select_name):
+    if request.method == "POST":        
         ings_selected_id = request.form.getlist(select_name)[0]
         ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
 
-        print(user_house)
-        print(user_house_arr)
-        print(user_house_id_arr)
+        # Cupboard
+        global user_cupboard
+        global user_cupboard_detail
+        global user_cupboard_ids
 
-        # Add selected ingredient to correct category (watch add/remove CI videos) --> DONE
-        # Only display ingredients on ingredients list that aren't already in spicerack --> DONE
-        # Make ID array for all user properties
-        # Find way of refreshing user properties to keep it up to date
-        # Redirect properly
-        # Make better names for accordion profile forms
-        # Add admin interface to add new ingredients and categories, which creates list of ingredients on each category, then update method of searching for ingredients with specific category
+        if (ings_selected['cat_name'] == ObjectId("615cb8323651f6c470f9a552")):
+            if ings_selected_id not in user_cupboard_ids:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"cupboard": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+                update_add_vars_cupboard()
 
         # House
+        global user_house
+        global user_house_detail
+        global user_house_ids
+
         if (ings_selected['cat_name'] == ObjectId("615cb8473651f6c470f9a553")):
-            if ings_selected_id not in user_house_id_arr:
+            if ings_selected_id not in user_house_ids:
                 users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
                                     {'$push': {"house": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+                update_add_vars_house()
+        
+        # Spicerack
+        global user_spicerack
+        global user_spicerack_detail
+        global user_spicerack_ids
 
-        print(user_house_id_arr)
+        if (ings_selected['cat_name'] == ObjectId("615cb7b43651f6c470f9a551")):
+            if ings_selected_id not in user_spicerack_ids:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"spicerack": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+                update_add_vars_spicerack()
 
-        return render_template("pages/profile/profile.html",
-                            user=user,
-                            ingredients=ings)
+        return redirect(url_for("profile"))
 
 
 @app.route("/add_recipe")
