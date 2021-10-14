@@ -1,0 +1,27 @@
+{% set active_page = 'add_ingredient' %}
+{% extends "pages/base/base.html" %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/add_ingredient.css') }}">
+{% endblock %}
+
+{% block extra_title %} | Add Ingredient{% endblock %}
+
+{% block content %}
+    {% with header_text="Add Ingredient" %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <section class="container-section">
+        <form method="POST" action="{{ url_for('add_ingredient') }}" id="form_add-ingredient">
+            <label for="name">Ingredient:</label>
+            <input type="text" id="name" name="name"><br>
+            <label for="category">Category:</label>
+            <select name="category">
+                {% for cat in categories %}
+                    <option value="{{ cat.cat_name }}">{{ cat.cat_name }}</option>
+                {% endfor %}
+            </select><br>
+            <button type="submit" form="add-ingredient">+ add ingredient</button>
+        </form>
+    </section>
+{% endblock %}

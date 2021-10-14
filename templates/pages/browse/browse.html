@@ -12,14 +12,43 @@
         {% include 'components/header.html' %}
     {% endwith %}
     <section class="container-section">
-        <p>Search by:</p>
         {% include 'pages/browse/includes/switch_dish-ingredients.html' %}
         <div class="button-long">
             <i class="fas fa-search icon"></i>
             <p>Search dishes</p>
         </div>
+        <div class="container-scrollx">
+            <span class="me-2">Filters:</span>
+            <ul class="checkbox-ingredient">
+                <li>
+                    <input type="checkbox" id="cookbook_filters_ingredients">
+                    <label for="cookbook_filters_ingredients">Ingredients</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cookbook_filters_meal">
+                    <label for="cookbook_filters_meal">Meal</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="cookbook_filters_bees">
+                    <label for="cookbook_filters_bees">Bees</label>
+                </li>
+            </ul>
+        </div>
         <div class="button-short">
             <a href="{{ url_for('browse_results') }}">Search</a>
         </div>
+    </section>
+    <section class="container-section">
+        <form method="POST" action="{{ url_for('add_ingredient') }}" id="form_add-ingredient">
+            <label for="name">Ingredient:</label>
+            <input type="text" id="name" name="name"><br>
+            <label for="category">Category:</label>
+            <select name="category">
+                {% for cat in categories %}
+                    <option value="{{ cat._id }}">{{ cat.cat_name }}</option>
+                {% endfor %}
+            </select><br>
+            <button type="submit" form="form_add-ingredient">+ add ingredient</button>
+        </form>
     </section>
 {% endblock %}

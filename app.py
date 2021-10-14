@@ -163,10 +163,10 @@ def profile():
                            )
 
 
-@app.route("/add_ingredient/<select_name>", methods=["GET", "POST"])
-def profile_add_ingredient(select_name):
+@app.route("/profile_add_ingredient", methods=["GET", "POST"])
+def profile_add_ingredient():
     if request.method == "POST":        
-        ings_selected_id = request.form.getlist(select_name)[0]
+        ings_selected_id = request.form.getlist("ingredient")[0]
         ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
 
         # Cupboard
@@ -217,7 +217,8 @@ def view_recipe():
 
 @app.route("/browse")
 def browse():
-    return render_template("pages/browse/browse.html")
+    return render_template("pages/browse/browse.html",
+                           categories=cats)
 
 
 @app.route("/browse_results")
@@ -225,6 +226,25 @@ def browse_results():
     return render_template("pages/browse_results/browse_results.html",
                            categories=cats,
                            recipes=recs)
+
+
+# def add_ingredient_page():
+
+
+@app.route("/add_ingredient", methods=["GET", "POST"])
+def add_ingredient():
+    if request.method == "POST":
+        cat_str = request.form.getlist("category")[0]
+
+        ing_new = {
+            "name": request.form.get("name"),
+            "url":  request.form.get("name").replace(' ', '-').lower(),
+            "cat_name": ObjectId(cat_str)
+        }
+
+        ings_db.insert_one(ing_new)
+
+        return redirect(url_for("browse"))
 
 
 @app.route("/cookbook")
