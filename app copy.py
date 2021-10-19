@@ -6,6 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
+# from functions.create_vars import *
 
 
 app = Flask(__name__)
@@ -31,6 +32,69 @@ units = list(mongo.db.units.find())
 
 # Current user (replace with session[user])
 user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+
+# User cupboard
+user_cupboard = user['cupboard']
+user_cupboard_detail = []
+user_cupboard_ids = []
+icupboard_max = len(user_cupboard)
+
+# Get ings in user's cupboard
+if user_cupboard != []:
+    i = 0
+    while i < icupboard_max:
+        user_cupboard_detail.append(ings_db.find_one({"_id": user_cupboard[i]['id']}))
+        user_cupboard_ids.append(str(user_cupboard[i]['id']))
+        user_cupboard_detail[i]["bag"] = user_cupboard[i]['bag']
+        i += 1
+
+def update_add_vars_cupboard():
+    global user_cupboard
+    global user_cupboard_detail
+    global user_cupboard_ids
+
+    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    user_cupboard = user['cupboard']
+    user_cupboard_detail.append(ings_db.find_one({"_id": user_cupboard[-1]['id']}))
+    user_cupboard_detail[-1]["bag"] = user_cupboard[-1]['bag']
+    user_cupboard_ids.append(str(user_cupboard[-1]['id']))
+
+    return user_cupboard, user_cupboard_detail, user_cupboard_ids
+
+
+# User fav
+
+# User house
+user_house = user['house']
+user_house_detail = []
+user_house_ids = []
+ihouse_max = len(user_house)
+
+# Get ings in user's house
+if user_house != []:
+    i = 0
+    while i < ihouse_max:
+        user_house_detail.append(ings_db.find_one({"_id": user_house[i]['id']}))
+        user_house_ids.append(str(user_house[i]['id']))
+        user_house_detail[i]["bag"] = user_house[i]['bag']
+        i += 1
+
+def update_add_vars_house():
+    global user_house
+    global user_house_detail
+    global user_house_ids
+
+    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+    user_house = user['house']
+    user_house_detail.append(ings_db.find_one({"_id": user_house[-1]['id']}))
+    user_house_detail[-1]["bag"] = user_house[-1]['bag']
+    user_house_ids.append(str(user_house[-1]['id']))
+
+    return user_house, user_house_detail, user_house_ids
+
+# User menu
+
+# User shopping
 
 # User spicerack
 user_spicerack = user['spicerack']
@@ -77,15 +141,26 @@ def register():
 
 
 @app.route("/profile")
-def profile():
+def profile():    
+    # Get ings with cupboard category
+    ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
+
     # Get ings with spice category
     ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
 
+    # Get ings with house category
+    ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
+
     return render_template("pages/profile/profile.html",
                            user = user,
+                           user_cupboard = user_cupboard_detail,
                            user_spicerack = user_spicerack_detail,
+                           user_house = user_house_detail,
                            ings = ings,
-                           ings_spicerack = ings_spicerack)
+                           ings_cupboard = ings_cupboard,
+                           ings_spicerack = ings_spicerack,
+                           ings_house = ings_house
+                           )
 
 
 @app.route("/profile_toggle_ingredient/<ing_id>")
@@ -113,6 +188,28 @@ def profile_add_ingredient():
     if request.method == "POST":        
         ings_selected_id = request.form.getlist("ingredient")[0]
         ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
+
+        # Cupboard
+        global user_cupboard
+        global user_cupboard_detail
+        global user_cupboard_ids
+
+        if (ings_selected['cat_name'] == ObjectId("615cb8323651f6c470f9a552")):
+            if ings_selected_id not in user_cupboard_ids:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"cupboard": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+                update_add_vars_cupboard()
+
+        # House
+        global user_house
+        global user_house_detail
+        global user_house_ids
+
+        if (ings_selected['cat_name'] == ObjectId("615cb8473651f6c470f9a553")):
+            if ings_selected_id not in user_house_ids:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"house": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
+                update_add_vars_house()
         
         # Spicerack
         global user_spicerack
