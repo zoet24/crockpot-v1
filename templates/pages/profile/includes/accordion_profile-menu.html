@@ -32,16 +32,16 @@
             <div class="accordion-body">
                 <ul>
                     {% for item in user_spicerack %}
-                        <li>{{ item.name }} {{ item.bag }}</li>
+                        <li><a href="{{ url_for('profile_toggle_ing', ing_id = item._id, profile_list = 'spicerack' ) }}">{{ item.name }} {{ item.bag }}</a></li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('profile_add_ingredient') }}" id="form_profile-add-ingredient_spicerack">
+                <form method="POST" action="{{ url_for('profile_update_ing', profile_list = 'spicerack' ) }}" id="form_profile-update-ingredient_spicerack">
                     <select name="ingredient">
                         {% for ing in ings_spicerack %}
                             <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" form="form_profile-add-ingredient_spicerack">+ add ingredients</button>
+                    <button type="submit" form="form_profile-update-ingredient_spicerack">+ add ingredients</button>
                 </form>
             </div>
         </div>

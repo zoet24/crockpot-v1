@@ -6,7 +6,7 @@ from flask_pymongo import PyMongo
 from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
-
+from python.profile import getUserProfileIngs, updateUserProfileIngs, toggleUserProfileIngs
 
 app = Flask(__name__)
 
@@ -15,6 +15,7 @@ app.config["MONGO_URI"] = os.environ.get("MONGO_URI")
 app.secret_key = os.environ.get("SECRET_KEY")
 
 mongo = PyMongo(app)
+
 
 # Mongo collections
 cats_db = mongo.db.categories
@@ -31,34 +32,6 @@ units = list(mongo.db.units.find())
 
 # Current user (replace with session[user])
 user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
-
-# User spicerack
-user_spicerack = user['spicerack']
-user_spicerack_detail = []
-user_spicerack_ids = []
-ispicerack_max = len(user_spicerack)
-
-# Get ings in user's spicerack
-if user_spicerack != []:
-    i = 0
-    while i < ispicerack_max:
-        user_spicerack_detail.append(ings_db.find_one({"_id": user_spicerack[i]['id']}))
-        user_spicerack_ids.append(str(user_spicerack[i]['id']))
-        user_spicerack_detail[i]["bag"] = user_spicerack[i]['bag']
-        i += 1
-
-def update_add_vars_spicerack():
-    global user_spicerack
-    global user_spicerack_detail
-    global user_spicerack_ids
-
-    user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
-    user_spicerack = user['spicerack']
-    user_spicerack_detail.append(ings_db.find_one({"_id": user_spicerack[-1]['id']}))
-    user_spicerack_detail[-1]["bag"] = user_spicerack[-1]['bag']
-    user_spicerack_ids.append(str(user_spicerack[-1]['id']))
-
-    return user_spicerack, user_spicerack_detail, user_spicerack_ids
 
 
 @app.route("/")
@@ -78,54 +51,34 @@ def register():
 
 @app.route("/profile")
 def profile():
-    # Get ings with spice category
-    ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
+    # Get list of ings in user's spicerack
+    user_spicerack = getUserProfileIngs('spicerack')
 
+    # Get list of ings with spice category
+    ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
+    
     return render_template("pages/profile/profile.html",
                            user = user,
-                           user_spicerack = user_spicerack_detail,
+                           user_spicerack = user_spicerack,
                            ings = ings,
-                           ings_spicerack = ings_spicerack)
+                           ings_spicerack = ings_spicerack,
+                           )
 
 
-@app.route("/profile_toggle_ingredient/<ing_id>")
-def profile_toggle_ingredient(ing_id):
-    ings_selected_id = ing_id
-    ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
+@app.route("/profile_update_ing/<profile_list>", methods=["GET", "POST"])
+def profile_update_ing(profile_list):
+    if request.method == "POST":
+        ing_id = request.form.getlist("ingredient")[0]
+        updateUserProfileIngs(ing_id, profile_list)
 
-    # Cupboard
-    global user_cupboard
-    global user_cupboard_detail
-    global user_cupboard_ids
-
-    if (ings_selected['cat_name'] == ObjectId("615cb8323651f6c470f9a552")):
-        ings_cupboard_index = user_cupboard_ids.index(ing_id)
-        ings_cupboard_bag_toggle = not (user_cupboard[ings_cupboard_index]['bag'])
-        users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
-                        {"$set" : {"cupboard."+str(ings_cupboard_index)+".bag" : ings_cupboard_bag_toggle}})
-        update_vars_cupboard()
-        
     return redirect(url_for("profile"))
 
 
-@app.route("/profile_add_ingredient", methods=["GET", "POST"])
-def profile_add_ingredient():
-    if request.method == "POST":        
-        ings_selected_id = request.form.getlist("ingredient")[0]
-        ings_selected = ings_db.find_one({"_id": ObjectId(ings_selected_id)})
-        
-        # Spicerack
-        global user_spicerack
-        global user_spicerack_detail
-        global user_spicerack_ids
+@app.route("/profile_toggle_ing/<ing_id>/<profile_list>")
+def profile_toggle_ing(ing_id, profile_list):
+    toggleUserProfileIngs(ing_id, profile_list)
 
-        if (ings_selected['cat_name'] == ObjectId("615cb7b43651f6c470f9a551")):
-            if ings_selected_id not in user_spicerack_ids:
-                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
-                                    {'$push': {"spicerack": {"id": ObjectId(ings_selected['_id']), "bag": True}}})
-                update_add_vars_spicerack()
-
-        return redirect(url_for("profile"))
+    return redirect(url_for("profile"))
 
 
 @app.route("/add_recipe")
