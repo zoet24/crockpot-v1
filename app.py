@@ -7,6 +7,7 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 from python.profile import getUserProfileIngs, updateUserProfileIngs, toggleUserProfileIngs
+from python.shoppingList import generateShoppingList, toggleShoppingList
 
 app = Flask(__name__)
 
@@ -51,16 +52,27 @@ def register():
 
 @app.route("/profile")
 def profile():
+    # Get list of ings in user's cupboard
+    user_cupboard = getUserProfileIngs('cupboard')
+    # Get list of ings in user's house
+    user_house = getUserProfileIngs('house')
     # Get list of ings in user's spicerack
     user_spicerack = getUserProfileIngs('spicerack')
 
+    # Get list of ings with cupboard category
+    ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
+    # Get list of ings with house category
+    ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
     # Get list of ings with spice category
     ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
     
     return render_template("pages/profile/profile.html",
                            user = user,
+                           user_cupboard = user_cupboard,
+                           user_house = user_house,
                            user_spicerack = user_spicerack,
-                           ings = ings,
+                           ings_cupboard = ings_cupboard,
+                           ings_house = ings_house,
                            ings_spicerack = ings_spicerack,
                            )
 
@@ -104,9 +116,6 @@ def browse_results():
                            recipes=recs)
 
 
-# def add_ingredient_page():
-
-
 @app.route("/add_ingredient", methods=["GET", "POST"])
 def add_ingredient():
     if request.method == "POST":
@@ -135,9 +144,23 @@ def menu():
 
 @app.route("/shopping_list")
 def shopping_list():
+    shopping_ings = generateShoppingList()
+    shopping_cupboard_ings = shopping_ings[0]
+    shopping_house_ings = shopping_ings[1]
+    shopping_spicerack_ings = shopping_ings[2]
+    
     # Need array of ingredients, quantities in shopping list
     return render_template("pages/shopping_list/shopping_list.html",
-                           ingredients=ings)
+                            shopping_cupboard_ings = shopping_cupboard_ings,
+                            shopping_house_ings = shopping_house_ings,
+                            shopping_spicerack_ings = shopping_spicerack_ings)
+
+
+@app.route("/shopping_list_toggle_ing/<ing_id>")
+def shopping_list_toggle_ing(ing_id):
+    toggleShoppingList(ing_id)
+
+    return redirect(url_for("shopping_list"))
 
 
 if __name__ == "__main__":

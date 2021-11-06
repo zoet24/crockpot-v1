@@ -66,11 +66,13 @@ def updateUserProfileIngs(ing_id, profile_list):
     if ing_id in user_profile_ings_ids:
         users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
                                     {'$pull': {profile_list: {"id": ObjectId(ing_id)}}})
+        users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$pull': {"shopping": {"id": ObjectId(ing_id)}}})
     else:
         users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
                                     {'$push': {profile_list: {"id": ObjectId(ing_id), "bag": True}}})
-
-    
+        users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"shopping": {"id": ObjectId(ing_id), "bag": True}}})
 
 
 def toggleUserProfileIngs(ing_id, profile_list):
@@ -82,6 +84,14 @@ def toggleUserProfileIngs(ing_id, profile_list):
     while i < user_profile_ings_length:
         if (ing_id == str(user_profile_ings[i]['id'])):
             user_profile_ings_toggle = not user_profile_ings[i]['bag']
+            # Toggle bag true/false in profile_list
             users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
                         {"$set" : {str(profile_list)+"."+str(i)+".bag" : user_profile_ings_toggle}})
+            # Push/pull ingredient from shopping list
+            if (user_profile_ings_toggle == True):
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$push': {"shopping": {"id": ObjectId(ing_id), "bag": True}}})
+            else:
+                users_db.update_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")},
+                                    {'$pull': {"shopping": {"id": ObjectId(ing_id)}}})
         i += 1

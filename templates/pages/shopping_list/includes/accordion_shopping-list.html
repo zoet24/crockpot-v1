@@ -1,25 +1,29 @@
 <div class="accordion" id="accordion-profile">
-    {% for ingredient in ingredients %}
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading-{{ loop.index }}">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapse-{{ loop.index }}" aria-expanded="true" aria-controls="collapse-{{ loop.index }}">
-                    <i class="{{ ingredient.ings_icon }} icon"></i>
-                    {{ ingredient.ings_category }} ()
-                </button>
-            </h2>
-            <div id="collapse-{{ loop.index }}" class="accordion-collapse collapse" aria-labelledby="heading-{{ loop.index }}"
-                data-bs-parent="#accordion-profile">
-                <div class="accordion-body">
-                    <select>
-                        {% for ing in ingredient.ings %}
-                            <option value="{{ ing }}">{{ ing }}</option>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="accordion-profile-heading-1">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-profile-collapse-1" aria-expanded="false" aria-controls="accordion-profile-collapse-1">
+                <i class="fas fa-archive icon"></i>
+                My cupboard ({{ shopping_cupboard_ings|length }})
+            </button>
+        </h2>
+        <div id="accordion-profile-collapse-1" class="accordion-collapse collapse" aria-labelledby="accordion-profile-heading-1"
+            data-bs-parent="#accordion-profile">
+            <div class="accordion-body">
+                <ul>
+                    {% for item in shopping_cupboard_ings %}
+                        <li><a href="{{ url_for('shopping_list_toggle_ing', ing_id = item._id ) }}">{{ item.name }} {{ item.bag }}</a></li>
+                    {% endfor %}
+                </ul>
+                <form method="POST" action="{{ url_for('profile_update_ing', profile_list = 'shopping' ) }}" id="form_profile-update-ingredient_shopping">
+                    <select name="ingredient">
+                        {% for ing in ings_shopping %}
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
-                    <!-- Ingredients, quanities -->
-                    <a href="#">+ add ingredients</a>
-                </div>
+                    <button type="submit" form="form_profile-update-ingredient_shopping">+ update ingredients</button>
+                </form>
             </div>
         </div>
-    {% endfor %}
+    </div>    
 </div>
