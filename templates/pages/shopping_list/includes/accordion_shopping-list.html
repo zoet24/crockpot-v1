@@ -1,29 +1,86 @@
-<div class="accordion" id="accordion-profile">
+<div class="accordion" id="accordion-shopping">
+    <!-- Cupboard -->
     <div class="accordion-item">
-        <h2 class="accordion-header" id="accordion-profile-heading-1">
+        <h2 class="accordion-header" id="accordion-shopping-heading-1">
             <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                data-bs-target="#accordion-profile-collapse-1" aria-expanded="false" aria-controls="accordion-profile-collapse-1">
+                data-bs-target="#accordion-shopping-collapse-1" aria-expanded="false" aria-controls="accordion-shopping-collapse-1">
                 <i class="fas fa-archive icon"></i>
                 My cupboard ({{ shopping_cupboard_ings|length }})
             </button>
         </h2>
-        <div id="accordion-profile-collapse-1" class="accordion-collapse collapse" aria-labelledby="accordion-profile-heading-1"
-            data-bs-parent="#accordion-profile">
+        <div id="accordion-shopping-collapse-1" class="accordion-collapse collapse" aria-labelledby="accordion-shopping-heading-1"
+            data-bs-parent="#accordion-shopping">
             <div class="accordion-body">
                 <ul>
                     {% for item in shopping_cupboard_ings %}
                         <li><a href="{{ url_for('shopping_list_toggle_ing', ing_id = item._id ) }}">{{ item.name }} {{ item.bag }}</a></li>
                     {% endfor %}
                 </ul>
-                <form method="POST" action="{{ url_for('profile_update_ing', profile_list = 'shopping' ) }}" id="form_profile-update-ingredient_shopping">
+                <form method="POST" action="{{ url_for('shopping_update_list', profile_list = 'cupboard' ) }}" id="form_shopping-update-ingredient_cupboard">
                     <select name="ingredient">
-                        {% for ing in ings_shopping %}
+                        {% for ing in ings_cupboard %}
                             <option value="{{ ing._id }}">{{ ing.name }}</option>
                         {% endfor %}
                     </select>
-                    <button type="submit" form="form_profile-update-ingredient_shopping">+ update ingredients</button>
+                    <button type="submit" form="form_shopping-update-ingredient_cupboard">+ update ingredients</button>
                 </form>
             </div>
         </div>
-    </div>    
+    </div>
+    <!-- House -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="accordion-shopping-heading-2">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-shopping-collapse-2" aria-expanded="false" aria-controls="accordion-shopping-collapse-2">
+                <i class="fas fa-toilet-paper icon"></i>
+                My house ({{ shopping_house_ings|length }})
+            </button>
+        </h2>
+        <div id="accordion-shopping-collapse-2" class="accordion-collapse collapse" aria-labelledby="accordion-shopping-heading-2"
+            data-bs-parent="#accordion-shopping">
+            <div class="accordion-body">
+                <ul>
+                    {% for item in shopping_house_ings %}
+                        <li><a href="{{ url_for('shopping_list_toggle_ing', ing_id = item._id ) }}">{{ item.name }} {{ item.bag }}</a></li>
+                    {% endfor %}
+                </ul>
+                <form method="POST" action="{{ url_for('shopping_update_list', profile_list = 'house' ) }}" id="form_shopping-update-ingredient_house">
+                    <select name="ingredient">
+                        {% for ing in ings_house %}
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" form="form_shopping-update-ingredient_house">+ update ingredients</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Spicerack -->
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="accordion-shopping-heading-3">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                data-bs-target="#accordion-shopping-collapse-3" aria-expanded="false" aria-controls="accordion-shopping-collapse-3">
+                <i class="fas fa-pepper-hot icon"></i>
+                My spicerack ({{ shopping_spicerack_ings|length }})
+            </button>
+        </h2>
+        <div id="accordion-shopping-collapse-3" class="accordion-collapse collapse" aria-labelledby="accordion-shopping-heading-3"
+            data-bs-parent="#accordion-shopping">
+            <div class="accordion-body">
+                <ul>
+                    {% for item in shopping_spicerack_ings %}
+                        <li><a href="{{ url_for('shopping_list_toggle_ing', ing_id = item._id ) }}">{{ item.name }} {{ item.bag }}</a></li>
+                    {% endfor %}
+                </ul>
+                <form method="POST" action="{{ url_for('shopping_update_list', profile_list = 'spicerack' ) }}" id="form_shopping-update-ingredient_spicerack">
+                    <select name="ingredient">
+                        {% for ing in ings_spicerack %}
+                            <option value="{{ ing._id }}">{{ ing.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="submit" form="form_shopping-update-ingredient_spicerack">+ update ingredients</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

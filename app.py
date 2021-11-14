@@ -7,7 +7,8 @@ from bson.objectid import ObjectId
 if os.path.exists("env.py"):
     import env
 from python.profile import getUserProfileIngs, updateUserProfileIngs, toggleUserProfileIngs
-from python.shoppingList import generateShoppingList, toggleShoppingList
+from python.shoppingList import getUserShoppingList, updateUserShoppingList, toggleShoppingList
+from python.utility import sortList
 
 app = Flask(__name__)
 
@@ -144,16 +145,37 @@ def menu():
 
 @app.route("/shopping_list")
 def shopping_list():
-    shopping_ings = generateShoppingList()
+    shopping_ings = getUserShoppingList()
     shopping_cupboard_ings = shopping_ings[0]
     shopping_house_ings = shopping_ings[1]
     shopping_spicerack_ings = shopping_ings[2]
+
+    # Get list of ings with cupboard category
+    ings_cupboard = list(ings_db.find({"cat_name": ObjectId("615cb8323651f6c470f9a552")}))
+    # Get list of ings with house category
+    ings_house = list(ings_db.find({"cat_name": ObjectId("615cb8473651f6c470f9a553")}))
+    # Get list of ings with spice category
+    ings_spicerack = list(ings_db.find({"cat_name": ObjectId("615cb7b43651f6c470f9a551")}))
+
+    sortList(ings_spicerack)
     
     # Need array of ingredients, quantities in shopping list
     return render_template("pages/shopping_list/shopping_list.html",
                             shopping_cupboard_ings = shopping_cupboard_ings,
                             shopping_house_ings = shopping_house_ings,
-                            shopping_spicerack_ings = shopping_spicerack_ings)
+                            shopping_spicerack_ings = shopping_spicerack_ings,
+                            ings_cupboard = ings_cupboard,
+                            ings_house = ings_house,
+                            ings_spicerack = ings_spicerack,)
+
+
+@app.route("/shopping_update_list/<profile_list>", methods=["GET", "POST"])
+def shopping_update_list(profile_list):
+    if request.method == "POST":
+        ing_id = request.form.getlist("ingredient")[0]
+        updateUserShoppingList(ing_id, profile_list)
+
+    return redirect(url_for("shopping_list"))
 
 
 @app.route("/shopping_list_toggle_ing/<ing_id>")

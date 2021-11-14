@@ -17,21 +17,21 @@ app.secret_key = os.environ.get("SECRET_KEY")
 mongo = PyMongo(app)
 
 
-# Mongo collections
+# # Mongo collections
 cats_db = mongo.db.categories
 ings_db = mongo.db.ingredients
 recs_db = mongo.db.recipes
 units_db = mongo.db.units
 users_db = mongo.db.users
 
-# Mongo collections - list
-cats = list(mongo.db.categories.find())
-ings = list(mongo.db.ingredients.find())
-recs = list(mongo.db.recipes.find())
-units = list(mongo.db.units.find())
+# # Mongo collections - list
+# cats = list(mongo.db.categories.find())
+# ings = list(mongo.db.ingredients.find())
+# recs = list(mongo.db.recipes.find())
+# units = list(mongo.db.units.find())
 
-# Current user (replace with session[user])
-user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
+# # Current user (replace with session[user])
+# user = users_db.find_one({"_id": ObjectId("60f19bbb944f8dacbba0b104")})
 
 
 # Choices for profile_list - cupboard, house, spicerack
