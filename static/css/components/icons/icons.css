@@ -1,0 +1,17 @@
+.icon {
+    align-items: center;
+    display: inline-flex;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    font-size: var(--h4);
+
+    border: solid 2px black;
+    border-radius: 50%;
+
+    margin: 0 0.5rem;
+}
+
+.icon-text {
+    margin: 5px 0 0;
+}

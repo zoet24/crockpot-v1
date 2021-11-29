@@ -1,0 +1,23 @@
+{% set active_page = 'profile' %}
+{% extends "pages/base/base.html" %}
+
+<!-- {% block extra_css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+{% endblock %} -->
+
+{% block extra_title %} | Profile{% endblock %}
+
+{% block content %}
+    {% with header_text= user.name %}
+        {% include 'components/header.html' %}
+    {% endwith %}
+    <!-- Profile accordion -->
+    <section class="container-section">
+        {% include 'pages/profile/includes/accordion_profile.html' %}
+    </section>
+    <section class="container-section">
+        <div class="button-short">
+            <a href="{{ url_for('login') }}">Log out</a>
+        </div>
+    </section>
+{% endblock %}

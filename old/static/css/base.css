@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+:root {
+    /* Font weights */
+    --thin-font: 300;
+    --normal-font: 400;
+    --thick-font: 500;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    font-weight: var(--normal-font);
+    font-size: 16px;
+}
+
+.hide {
+    display: none;
+}

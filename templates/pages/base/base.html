@@ -8,16 +8,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/accordion.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/buttons.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/checkboxes.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/header.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/icons.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/nav.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/recipe_cards.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/sections.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/switches.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/text.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/icons/icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/components/nav/nav.css') }}">
     {% endblock %}
 
     {% block extra_css %}
@@ -44,9 +36,7 @@
     {% endblock %}
 
     <!-- Navbar -->
-    {% if (active_page != 'index') and (active_page != 'login') and (active_page != 'register') %}
-        {% include 'components/nav.html' %}
-    {% endif %}
+    {% include 'components/nav/nav.html' %}
 </body>
 
 </html>
